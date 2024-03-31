@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useRef } from 'react';
 import get from 'lodash/get';
 import { closeTabs } from 'providers/ReduxStore/slices/tabs';
 import { saveRequest } from 'providers/ReduxStore/slices/collections/actions';
 import { deleteRequestDraft } from 'providers/ReduxStore/slices/collections';
+import Dropdown from 'components/Dropdown';
+import { IconDots } from '@tabler/icons';
 import { useTheme } from 'providers/Theme';
 import { useDispatch } from 'react-redux';
 import darkTheme from 'themes/dark';
@@ -17,6 +19,16 @@ const RequestTab = ({ tab, collection }) => {
   const dispatch = useDispatch();
   const { storedTheme } = useTheme();
   const [showConfirmClose, setShowConfirmClose] = useState(false);
+
+  const menuDropdownTippyRef = useRef();
+  const onMenuDropdownCreate = (ref) => (menuDropdownTippyRef.current = ref);
+  const MenuIcon = forwardRef((props, ref) => {
+    return (
+      <div ref={ref} className="pr-2">
+        <IconDots size={22} />
+      </div>
+    );
+  });
 
   const handleCloseClick = (event) => {
     event.stopPropagation();
@@ -155,6 +167,82 @@ const RequestTab = ({ tab, collection }) => {
         <span className="ml-1 tab-name" title={item.name}>
           {item.name}
         </span>
+      </div>
+      <div className="collection-actions">
+        <Dropdown onCreate={onMenuDropdownCreate} icon={<MenuIcon />} placement="bottom-start">
+          <div
+            className="dropdown-item"
+            onClick={(e) => {
+              menuDropdownTippyRef.current.hide();
+              setShowNewRequestModal(true);
+            }}
+          >
+            New Request
+          </div>
+          {/* <div
+              className="dropdown-item"
+              onClick={(e) => {
+                menuDropdownTippyRef.current.hide();
+                setShowNewFolderModal(true);
+              }}
+            >
+              New Folder
+            </div>
+            <div
+              className="dropdown-item"
+              onClick={(e) => {
+                menuDropdownTippyRef.current.hide();
+                setShowCloneCollectionModalOpen(true);
+              }}
+            >
+              Clone
+            </div>
+            <div
+              className="dropdown-item"
+              onClick={(e) => {
+                menuDropdownTippyRef.current.hide();
+                handleRun();
+              }}
+            >
+              Run
+            </div>
+            <div
+              className="dropdown-item"
+              onClick={(e) => {
+                menuDropdownTippyRef.current.hide();
+                setShowRenameCollectionModal(true);
+              }}
+            >
+              Rename
+            </div>
+            <div
+              className="dropdown-item"
+              onClick={(e) => {
+                menuDropdownTippyRef.current.hide();
+                setShowExportCollectionModal(true);
+              }}
+            >
+              Export
+            </div>
+            <div
+              className="dropdown-item"
+              onClick={(e) => {
+                menuDropdownTippyRef.current.hide();
+                setShowRemoveCollectionModal(true);
+              }}
+            >
+              Close
+            </div>
+            <div
+              className="dropdown-item"
+              onClick={(e) => {
+                menuDropdownTippyRef.current.hide();
+                viewCollectionSettings();
+              }}
+            >
+              Settings
+            </div> */}
+        </Dropdown>
       </div>
       <div
         className="flex px-2 close-icon-container"
