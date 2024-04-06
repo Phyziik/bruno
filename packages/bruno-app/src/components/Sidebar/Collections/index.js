@@ -26,12 +26,12 @@ const CollectionsBadge = () => {
     let order;
     switch (collectionSortOrder) {
       case 'default':
-        order = 'alphabetical';
+        order = 'natural';
         break;
-      case 'alphabetical':
-        order = 'reverseAlphabetical';
+      case 'natural':
+        order = 'reversenatural';
         break;
-      case 'reverseAlphabetical':
+      case 'reversenatural':
         order = 'default';
         break;
     }
@@ -50,7 +50,7 @@ const CollectionsBadge = () => {
           <button onClick={() => sortCollectionOrder()}>
             {collectionSortOrder == 'default' ? (
               <IconArrowsSort size={18} strokeWidth={1.5} />
-            ) : collectionSortOrder == 'alphabetical' ? (
+            ) : collectionSortOrder == 'natural' ? (
               <IconSortAscendingLetters size={18} strokeWidth={1.5} />
             ) : (
               <IconSortDescendingLetters size={18} strokeWidth={1.5} />

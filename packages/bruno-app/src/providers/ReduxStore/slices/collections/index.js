@@ -75,15 +75,18 @@ export const collectionsSlice = createSlice({
     },
     sortCollections: (state, action) => {
       state.collectionSortOrder = action.payload.order;
+      // const collator = new Intl.Collator('en', { numeric: true, sensitivity: 'base' });
       switch (action.payload.order) {
         case 'default':
           state.collections = state.collections.sort((a, b) => a.importedAt - b.importedAt);
           break;
         case 'alphabetical':
-          state.collections = state.collections.sort((a, b) => a.name.localeCompare(b.name));
+          console.log('sort before', state.collections);
+          // state.collections = state.collections.sort((a, b) => collator.compare(a.name, b.name));
+          console.log('sort after', state.collections);
           break;
         case 'reverseAlphabetical':
-          state.collections = state.collections.sort((a, b) => b.name.localeCompare(a.name));
+          // state.collections = state.collections.sort((a, b) => collator.compare(b.name, a.name));
           break;
       }
     },

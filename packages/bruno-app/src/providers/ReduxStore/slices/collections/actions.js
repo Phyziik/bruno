@@ -484,6 +484,7 @@ export const deleteItem = (itemUid, collectionUid) => (dispatch, getState) => {
 };
 
 export const sortCollections = (payload) => (dispatch) => {
+  console.log('dispatch', payload);
   dispatch(_sortCollections(payload));
 };
 export const moveItem = (collectionUid, draggedItemUid, targetItemUid) => (dispatch, getState) => {
